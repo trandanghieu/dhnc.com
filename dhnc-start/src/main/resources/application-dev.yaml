@@ -18,3 +18,20 @@ spring:
     properties:
       hibernate:
         format_sql: ${FORMAT_SQL}
+
+management:
+  tracing:
+    sampling:
+      probability: ${TRACING_SAMPLING_PROBABILITY_DEV:1.0}
+  otlp:
+    tracing:
+      export:
+        enabled: ${OTEL_TRACING_EXPORT_ENABLED_DEV:true}
+
+logging:
+  level:
+    com.dhnc: ${LOG_LEVEL_APP_DEV:DEBUG}
+  pattern:
+    console: >-
+      %clr(%d{HH:mm:ss.SSS}){faint} %clr(%5p) %clr([%X{traceId:-},%X{userId:-}]){cyan}
+      %clr(%-20.20logger{19}){blue} %clr(:){faint} %m %kvp%n%wEx
